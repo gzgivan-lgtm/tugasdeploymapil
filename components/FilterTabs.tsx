@@ -16,7 +16,7 @@ export default function FilterTabs({ active, onChange }: Props) {
         <button
           key={f}
           onClick={() => onChange(f)}
-          className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all cursor-pointer
+          className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-all cursor-pointer touch-manipulation
             ${active === f
               ? 'bg-indigo-600 border-indigo-600 text-white'
               : 'bg-white border-gray-200 text-gray-500 hover:border-indigo-300'

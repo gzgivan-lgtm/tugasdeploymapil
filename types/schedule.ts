@@ -4,8 +4,8 @@ export type FilterType = 'semua' | 'hari ini' | 'akan datang' | 'lewat';
 
 export interface Schedule {
   id: number;
-  date: string;   // YYYY-MM-DD
-  time: string;   // HH:MM or ''
+  date: string;      // YYYY-MM-DD
+  time: string;      // HH:MM atau ''
   category: Category;
   title: string;
 }

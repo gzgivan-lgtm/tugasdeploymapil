@@ -5,7 +5,7 @@ import { Category, Schedule } from '@/types/schedule';
 import { todayStr } from '@/lib/utils';
 
 interface Props {
-  onAdd: (s: Schedule) => void;
+  onAdd: (s: Omit<Schedule, 'id'>) => void;
 }
 
 const CATEGORIES: Category[] = ['meeting', 'tugas', 'reminder', 'acara', 'lainnya'];
@@ -27,7 +27,6 @@ export default function AddForm({ onAdd }: Props) {
     }
 
     onAdd({
-      id: Date.now(),
       date,
       time,
       category,
@@ -40,34 +39,37 @@ export default function AddForm({ onAdd }: Props) {
   }
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm shadow-indigo-100 mb-6">
-      <div className="flex flex-wrap gap-3">
-        <div className="flex flex-col gap-1.5 flex-1 min-w-[140px]">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm shadow-indigo-100 mb-4 sm:mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {/* Tanggal — full width on mobile */}
+        <div className="flex flex-col gap-1.5 col-span-1">
           <label className="text-[11px] font-bold uppercase tracking-wide text-gray-500">Tanggal</label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+            className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
           />
         </div>
 
-        <div className="flex flex-col gap-1.5 flex-1 min-w-[130px]">
+        {/* Waktu */}
+        <div className="flex flex-col gap-1.5 col-span-1">
           <label className="text-[11px] font-bold uppercase tracking-wide text-gray-500">Waktu (opsional)</label>
           <input
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+            className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
           />
         </div>
 
-        <div className="flex flex-col gap-1.5 flex-1 min-w-[130px]">
+        {/* Kategori — full width on mobile, col 3 on sm+ */}
+        <div className="flex flex-col gap-1.5 col-span-2 sm:col-span-1">
           <label className="text-[11px] font-bold uppercase tracking-wide text-gray-500">Kategori</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as Category)}
-            className="px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+            className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
@@ -77,7 +79,8 @@ export default function AddForm({ onAdd }: Props) {
           </select>
         </div>
 
-        <div className="flex flex-col gap-1.5 basis-full">
+        {/* Judul — always full width */}
+        <div className="flex flex-col gap-1.5 col-span-2 sm:col-span-3">
           <label className="text-[11px] font-bold uppercase tracking-wide text-gray-500">Judul Jadwal</label>
           <input
             type="text"
@@ -86,7 +89,7 @@ export default function AddForm({ onAdd }: Props) {
             onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
             placeholder="contoh: Meeting project bersama tim"
             maxLength={80}
-            className="px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
+            className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm bg-slate-50 focus:outline-none focus:border-indigo-400 focus:bg-white transition"
           />
         </div>
       </div>
@@ -94,7 +97,7 @@ export default function AddForm({ onAdd }: Props) {
       <button
         ref={btnRef}
         onClick={handleAdd}
-        className={`mt-4 w-full py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-semibold rounded-xl transition-all cursor-pointer ${shake ? 'animate-shake' : ''}`}
+        className={`mt-4 w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 active:scale-[0.98] text-white font-semibold rounded-xl transition-all cursor-pointer text-sm sm:text-base ${shake ? 'animate-shake' : ''}`}
       >
         + Tambah Jadwal
       </button>

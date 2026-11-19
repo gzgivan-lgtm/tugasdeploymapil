@@ -14,26 +14,26 @@ export default function ScheduleItem({ schedule, onDelete }: Props) {
   const { day, month, year } = formatDate(schedule.date);
 
   return (
-    <div className={`flex items-center gap-4 bg-white rounded-xl px-4 py-3.5 shadow-sm animate-fade-in transition-transform hover:-translate-y-0.5 ${isPast ? 'opacity-60' : ''}`}>
+    <div className={`flex items-center gap-3 sm:gap-4 bg-white rounded-xl px-3 sm:px-4 py-3 sm:py-3.5 shadow-sm animate-fade-in transition-transform hover:-translate-y-0.5 ${isPast ? 'opacity-60' : ''}`}>
       {/* Date badge */}
-      <div className="text-center min-w-[48px]">
-        <div className={`text-2xl font-black leading-none ${isPast ? 'text-gray-300' : 'text-indigo-600'}`}>
+      <div className="text-center min-w-[42px] sm:min-w-[48px]">
+        <div className={`text-xl sm:text-2xl font-black leading-none ${isPast ? 'text-gray-300' : 'text-indigo-600'}`}>
           {day}
         </div>
-        <div className="text-[11px] uppercase font-semibold text-gray-400 mt-0.5">
+        <div className="text-[10px] sm:text-[11px] uppercase font-semibold text-gray-400 mt-0.5">
           {month} {year}
         </div>
       </div>
 
       {/* Divider */}
-      <div className={`w-0.5 h-10 rounded-full ${isPast ? 'bg-gray-100' : 'bg-gray-200'}`} />
+      <div className={`w-0.5 h-9 rounded-full ${isPast ? 'bg-gray-100' : 'bg-gray-200'}`} />
 
       {/* Info */}
       <div className="flex-1 min-w-0">
         <p className={`font-semibold text-sm truncate ${isPast ? 'line-through text-gray-400' : 'text-gray-800'}`}>
           {schedule.title}
         </p>
-        <div className="flex items-center gap-2 mt-1 flex-wrap">
+        <div className="flex items-center gap-1.5 sm:gap-2 mt-1 flex-wrap">
           {schedule.time ? (
             <span className="text-xs text-gray-400">🕐 {schedule.time}</span>
           ) : isToday ? (
@@ -43,10 +43,10 @@ export default function ScheduleItem({ schedule, onDelete }: Props) {
         </div>
       </div>
 
-      {/* Delete */}
+      {/* Delete — bigger tap target on mobile */}
       <button
         onClick={() => onDelete(schedule.id)}
-        className="text-gray-300 hover:text-red-400 transition-colors text-base p-1 cursor-pointer"
+        className="text-gray-300 hover:text-red-400 active:text-red-500 transition-colors p-2 -mr-1 cursor-pointer touch-manipulation"
         title="Hapus jadwal"
       >
         ✕
